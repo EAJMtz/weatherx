@@ -1,16 +1,18 @@
 package com.example.weatherx.view
 
-import WeatherWeekViewModel
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.weatherx.adapter.WeatherWeekAdapter
 import com.example.weatherx.databinding.FragmentWeatherWeekBinding
-import android.util.Log
+import com.example.weatherx.viewmodel.WeatherWeekViewModel
+import com.example.weatherx.model.ForecastDay
+import com.example.weatherx.model.WeatherForecast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +21,7 @@ class WeatherWeekFragment : Fragment() {
     private var _binding: FragmentWeatherWeekBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<WeatherWeekViewModel>()
+    private lateinit var weatherAdapter: WeatherWeekAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,16 +35,22 @@ class WeatherWeekFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.rvWeekForecast.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvWeekForecast.adapter = WeatherWeekAdapter(emptyList()) // Aquí vamos a actualizar con datos reales
+        weatherAdapter = WeatherWeekAdapter(emptyList<ForecastDay>())
+        binding.rvWeekForecast.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = weatherAdapter
+        }
     }
 
     private fun setupObservers() {
         viewModel.weatherForecast.observe(viewLifecycleOwner) { forecast ->
             forecast?.let {
-                Log.d("FragmentDebug", "Días pasados al adapter: ${forecast.forecastDays.map { day -> day.date }}") // 🔍 Confirmar en Logcat
-                (binding.rvWeekForecast.adapter as? WeatherWeekAdapter)?.updateData(forecast.forecastDays)
-            } ?: Log.e("FragmentDebug", "El ViewModel no está enviando datos")
+                Log.d("WeatherWeekFragment", "Días recibidos: ${it.forecastDays.size}")
+                Log.d("WeatherWeekFragment", "Fechas: ${it.forecastDays.map { day -> day.date }}")
+                weatherAdapter.updateData(it.forecastDays)
+            } ?: run {
+                Log.e("WeatherWeekFragment", "No se recibieron datos del forecast")
+            }
         }
 
         viewModel.loaderState.observe(viewLifecycleOwner) { isLoading ->
@@ -50,7 +59,8 @@ class WeatherWeekFragment : Fragment() {
     }
 
     private fun fetchWeatherData() {
-        val coordinates = "19.32871829633027,-99.16549389549148" // Ubicación de prueba
+        val coordinates = "19.32871829633027,-99.16549389549148" // México City coordinates
+        Log.d("WeatherWeekFragment", "Obteniendo datos para: $coordinates")
         viewModel.getWeatherWeekDetail(coordinates)
     }
 

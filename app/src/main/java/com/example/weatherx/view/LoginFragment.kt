@@ -1,5 +1,5 @@
 package com.example.weatherx.view
-import android.content.Intent
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import com.example.weatherx.R
 import com.example.weatherx.databinding.FragmentLoginBinding
 import com.example.weatherx.utils.FragmentCommunicator
-import com.example.weatherx.view.HomeActivity
 import com.example.weatherx.viewModel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +24,6 @@ class LoginFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
     private val viewModel by viewModels<LoginViewModel>()
-    var isValid: Boolean = false
     private lateinit var communicator: FragmentCommunicator
 
     override fun onCreateView(
@@ -77,3 +75,31 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
+    private fun requestLogin() {
+        val email = binding.tietEmail.text.toString().trim()
+        val password = binding.tietPassword.text.toString().trim()
+
+        if (email.isEmpty()) {
+            binding.tfEmail.error = "Please introduce your email"
+            return
+        }
+
+        if (password.isEmpty()) {
+            binding.tfPassword.error = "Please introduce your password"
+            return
+        }
+
+        // Clear any previous errors
+        binding.tfEmail.error = null
+        binding.tfPassword.error = null
+
+        // Call the ViewModel to perform login
+        viewModel.requestLogin(email, password)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}

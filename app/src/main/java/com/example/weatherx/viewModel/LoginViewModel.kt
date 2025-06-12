@@ -1,6 +1,5 @@
 package com.example.weatherx.viewModel
 
-import android.provider.ContactsContract.CommonDataKinds.Email
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,12 +11,8 @@ import kotlinx.coroutines.tasks.await
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-//import com.example.weatherx.repository.UserRepository
-
 @HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val repository: UserRepository
-) : ViewModel() {
+class LoginViewModel @Inject constructor() : ViewModel() {
 
     private val _loaderState = MutableLiveData<Boolean>()
     val loaderState: LiveData<Boolean>
@@ -34,13 +29,18 @@ class LoginViewModel @Inject constructor(
         _sessionValid.value = false
 
         viewModelScope.launch {
-            val result = firebase.signInWithEmailAndPassword(email, password).await()
-            _loaderState.value = false
+            try {
+                val result = firebase.signInWithEmailAndPassword(email, password).await()
+                _loaderState.value = false
 
-            result.user?.let {
-                _sessionValid.value = true
-            } ?: run {
-                Log.e("Firebase", "Ocurrio un problema")
+                result.user?.let {
+                    _sessionValid.value = true
+                } ?: run {
+                    Log.e("Firebase", "Ocurrio un problema")
+                }
+            } catch (e: Exception) {
+                _loaderState.value = false
+                Log.e("Firebase", "Error during login: ${e.message}")
             }
         }
     }
