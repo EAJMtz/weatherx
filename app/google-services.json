@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "529084358481",
-    "project_id": "weatherx",
-    "storage_bucket": "weatherx.firebasestorage.app"
+    "project_number": "396219310230",
+    "project_id": "weatherx-71ff5",
+    "storage_bucket": "weatherx-71ff5.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:529084358481:android:2d581c6b54608f6e13fd70",
+        "mobilesdk_app_id": "1:396219310230:android:ce73c994c84923a05ae2b7",
         "android_client_info": {
           "package_name": "com.example.weatherx"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAqT4qv3S5mMat_wQa9Yman542_qZhcpwA"
+          "current_key": "AIzaSyDG9zIXogFE2FM4jfzN6bLYGhNzXu-ZRzc"
         }
       ],
       "services": {
