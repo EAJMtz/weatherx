@@ -168,7 +168,7 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginBottom="4dp"
-        android:background="@drawable/wb_twilight_24px"
+        android:background="@drawable/light_24px"
         app:backgroundTint="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/tvSunrise"
         app:layout_constraintStart_toStartOf="@+id/tvSunrise"
