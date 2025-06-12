@@ -1,3 +1,5 @@
+package com.example.weatherx.viewmodel
+
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +13,7 @@ import java.util.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class WeatherWeekViewModel @Inject constructor(
     private val repository: WeatherRepository
 ) : ViewModel() {
@@ -31,7 +34,7 @@ class WeatherWeekViewModel @Inject constructor(
                 _loaderState.value = false
 
                 response?.forecast?.forecastDays?.let { days ->
-                    Log.d("WeatherDebug", "Datos crudos antes de procesamiento: ${days.map { it.date }}") //Ver datos originales
+                    Log.d("WeatherDebug", "Datos crudos antes de procesamiento: ${days.map { it.date }}")
 
                     val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
@@ -61,6 +64,7 @@ class WeatherWeekViewModel @Inject constructor(
                 } ?: Log.e("WeatherDebug", "forecastDays está vacío o nulo")
             } catch (e: Exception) {
                 Log.e("WeatherDebug", "Error crítico en ViewModel: ${e.message}")
+                _loaderState.value = false
             }
         }
     }

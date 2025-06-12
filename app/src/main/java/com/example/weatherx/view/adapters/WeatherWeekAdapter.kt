@@ -7,6 +7,8 @@ import com.bumptech.glide.Glide
 import com.example.weatherx.databinding.ItemWeatherWeekBinding
 import com.example.weatherx.model.Weather.ForecastDay
 import android.util.Log
+import java.text.SimpleDateFormat
+import java.util.*
 
 class WeatherWeekAdapter(private var forecastList: List<ForecastDay>) :
     RecyclerView.Adapter<WeatherWeekAdapter.WeatherWeekViewHolder>() {
@@ -14,15 +16,31 @@ class WeatherWeekAdapter(private var forecastList: List<ForecastDay>) :
     inner class WeatherWeekViewHolder(private val binding: ItemWeatherWeekBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(forecast: ForecastDay) {
-            binding.tvDateWeek.text = forecast.date
+            // Format date to be more readable
+            val formattedDate = formatDate(forecast.date)
+            binding.tvDateWeek.text = formattedDate
+
             binding.tvWeatherConditionWeek.text = forecast.dayInfo.condition.text
-            binding.tvCelsiusWeek.text = "${forecast.dayInfo.avgTempC} °C"
+            binding.tvCelsiusWeek.text = "${forecast.dayInfo.avgTempC}°C"
             binding.tvWindInfoWeek.text = "Wind: ${forecast.dayInfo.windSpeed} km/h"
             binding.tvRainProbabilityWeek.text = "Rain probability: ${forecast.dayInfo.rainChance}%"
 
+            // Load weather icon with Glide
             Glide.with(binding.root.context)
                 .load("https:" + forecast.dayInfo.condition.icon)
                 .into(binding.ivWeatherIconWeek)
+        }
+
+        private fun formatDate(dateString: String): String {
+            return try {
+                val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val outputFormat = SimpleDateFormat("EEEE, MMMM dd", Locale.getDefault())
+                val date = inputFormat.parse(dateString)
+                date?.let { outputFormat.format(it) } ?: dateString
+            } catch (e: Exception) {
+                Log.e("WeatherAdapter", "Error formatting date: ${e.message}")
+                dateString
+            }
         }
     }
 
@@ -40,8 +58,7 @@ class WeatherWeekAdapter(private var forecastList: List<ForecastDay>) :
 
     // Método para actualizar la lista de datos
     fun updateData(newList: List<ForecastDay>) {
-        val previousSize = forecastList.size
         forecastList = newList
-        notifyItemRangeInserted(previousSize, forecastList.size) // ✅ Refresca solo los nuevos elementos
+        notifyDataSetChanged() // ✅ Refresca toda la lista
     }
 }

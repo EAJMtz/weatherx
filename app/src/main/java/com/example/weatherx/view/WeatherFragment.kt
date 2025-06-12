@@ -1,6 +1,5 @@
 package com.example.weatherx.view
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,7 +12,6 @@ import com.example.weatherx.model.Weather
 import com.example.weatherx.utils.FragmentCommunicator
 import com.example.weatherx.databinding.FragmentWeatherBinding
 import com.example.weatherx.view.HomeActivity
-import com.example.weatherx.view.OnboardingActivity
 import com.example.weatherx.viewModel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,13 +19,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class WeatherFragment : Fragment() {
 
     private var _binding: FragmentWeatherBinding? = null
-
     private val binding get() = _binding!!
     private val viewModel by viewModels<WeatherViewModel>()
     private lateinit var communicator: FragmentCommunicator
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentWeatherBinding.inflate(inflater, container, false)
@@ -36,13 +34,13 @@ class WeatherFragment : Fragment() {
         return binding.root
     }
 
-    fun setupView() {
+    private fun setupView() {
         setupObservers()
         val coordinates = getUserCoordinates()
         viewModel.getWeatherDetail(coordinates)
     }
 
-    fun setupObservers() {
+    private fun setupObservers() {
         viewModel.weatherInfo.observe(viewLifecycleOwner) { weather ->
             showWeatherInfo(weather)
         }
@@ -52,29 +50,49 @@ class WeatherFragment : Fragment() {
         }
     }
 
-    fun showWeatherInfo(weather: Weather) {
+    private fun showWeatherInfo(weather: Weather) {
         binding.tvCity.text = weather.location.name
-        binding.tvDate.text = if (weather.current.isDay == 1)
-            weather.location.localtime.split(" ")[1] + " a.m"
-        else
-            weather.location.localtime.split(" ")[1] + " p.m"
-        binding.tvCelsius.text = "${weather.current.tempC} °C"
-        binding.tvGreeting.text = if (weather.current.isDay == 1) "Good morning" else "Good night"
-        binding.tvSunriseInfo.text = if (weather.current.isDay == 1)
-            weather.location.localtime.split(" ")[1] + " a.m"
-        else
-            weather.location.localtime.split(" ")[1] + " p.m"
-        binding.tvWindInfo.text = "${weather.current.windMph} m/s"
-        binding.tvTempratureInfo.text = "${weather.current.tempC} °C"
+
+        // Format time properly
+        val timeString = weather.location.localtime.split(" ")[1]
+        val greeting = if (weather.current.isDay == 1) {
+            getString(R.string.good_morning)
+        } else {
+            getString(R.string.good_evening)
+        }
+
+        val timeWithPeriod = if (weather.current.isDay == 1) {
+            getString(R.string.time_am, timeString)
+        } else {
+            getString(R.string.time_pm, timeString)
+        }
+
+        binding.tvDate.text = timeWithPeriod
+        binding.tvCelsius.text = getString(R.string.temperature_celsius, weather.current.tempC)
+        binding.tvGreeting.text = greeting
+        binding.tvSunriseInfo.text = timeWithPeriod
+
+        // Fixed: Use proper string formatting for wind speed
+        binding.tvWindInfo.text = getString(R.string.wind_speed_ms, weather.current.windMph.toString())
+        binding.tvTempratureInfo.text = getString(R.string.temperature_celsius, weather.current.tempC)
+
+        // Load weather icon - Fixed: Check if icon URL is valid
+        val iconUrl = weather.current.condition.icon
+        val fullIconUrl = if (iconUrl.startsWith("http")) {
+            iconUrl
+        } else {
+            "https:$iconUrl"
+        }
 
         Glide.with(this)
-            .load("https:" + weather.current.condition.icon)
+            .load(fullIconUrl)
             .placeholder(R.drawable.pending_24px)
-            .error(R.drawable.sentiment_sad_24px)
+            .error(android.R.drawable.ic_dialog_alert) // Using system drawable as fallback
             .into(binding.ivWeather)
     }
 
-    fun getUserCoordinates(): String {
+    private fun getUserCoordinates(): String {
+        // Mexico City coordinates (since you're located there)
         return "19.32871829633027, -99.16549389549148"
     }
 

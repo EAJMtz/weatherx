@@ -1,6 +1,6 @@
 package com.example.weatherx.view
 
-import WeatherWeekViewModel
+import com.example.weatherx.viewmodel.WeatherWeekViewModel
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weatherx.adapter.WeatherWeekAdapter
+import com.example.weatherx.view.adapters.WeatherWeekAdapter
 import com.example.weatherx.databinding.FragmentWeatherWeekBinding
 import android.util.Log
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,14 +33,14 @@ class WeatherWeekFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.rvWeekForecast.layoutManager = LinearLayoutManager(requireContext())
-        binding.rvWeekForecast.adapter = WeatherWeekAdapter(emptyList()) // Aquí vamos a actualizar con datos reales
+        binding.rvWeekForecast.adapter = WeatherWeekAdapter(emptyList())
     }
 
     private fun setupObservers() {
         viewModel.weatherForecast.observe(viewLifecycleOwner) { forecast ->
             forecast?.let {
-                Log.d("FragmentDebug", "Días pasados al adapter: ${forecast.forecastDays.map { day -> day.date }}") // 🔍 Confirmar en Logcat
-                (binding.rvWeekForecast.adapter as? WeatherWeekAdapter)?.updateData(forecast.forecastDays)
+                Log.d("FragmentDebug", "Días pasados al adapter: ${it.forecastDays.map { day -> day.date }}")
+                (binding.rvWeekForecast.adapter as? WeatherWeekAdapter)?.updateData(it.forecastDays)
             } ?: Log.e("FragmentDebug", "El ViewModel no está enviando datos")
         }
 
@@ -50,7 +50,7 @@ class WeatherWeekFragment : Fragment() {
     }
 
     private fun fetchWeatherData() {
-        val coordinates = "19.32871829633027,-99.16549389549148" // Ubicación de prueba
+        val coordinates = "19.32871829633027,-99.16549389549148"
         viewModel.getWeatherWeekDetail(coordinates)
     }
 

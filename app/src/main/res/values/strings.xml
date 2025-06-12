@@ -1,6 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-        s<string name="app_name">WeatherX</string>
-        <!-- Strings used for fragments for navigation -->
+        <!-- App name -->
+        <string name="app_name">WeatherX</string>
+
+        <!-- User registration and login strings -->
         <string name="name">Name: </string>
         <string name="user_name">Username: </string>
         <string name="last_names">Last names: </string>
@@ -10,7 +13,6 @@
         <string name="code">Code: </string>
         <string name="welcome">"Welcome!"</string>
         <string name="permission">Permission</string>
-        <string name="back_button_description">Botón de retroceso</string>
         <string name="login_user">Login</string>
         <string name="email">Email:</string>
         <string name="enter_password">Password:</string>
@@ -20,8 +22,13 @@
         <string name="password_reset">Reset your password</string>
         <string name="button_reset">Reset password</string>
         <string name="description_reset">Enter the email address associated with your account</string>
-        <string name="hello_blank_fragment">Hello blank fragment</string>
-        <string name="menu_button_description">Button to open setting</string>
+
+        <!-- Navigation and UI strings -->
+        <string name="back_button_description">Back button</string>
+        <string name="menu_button_description">Button to open settings</string>
+        <string name="description_back">Go back</string>
+
+        <!-- Weather information strings -->
         <string name="city">Karachi</string>
         <string name="date">Monday 7:00 AM</string>
         <string name="celsius">22 °C</string>
@@ -31,6 +38,82 @@
         <string name="hour">7:00</string>
         <string name="sunrise">Sunrise</string>
         <string name="tempratureInfo">23°</string>
-        <string name="temprature">Temprature</string>
-        <string name="description_back">Go back</string>
-    </resources>
+        <string name="temprature">Temperature</string>
+
+
+        <string name="good_morning">Good morning</string>
+        <string name="good_evening">Good evening</string>
+        <string name="time_am">%s a.m</string>
+        <string name="time_pm">%s p.m</string>
+        <string name="temperature_celsius">%d °C</string>
+        <string name="wind_speed_ms">%s m/s</string>
+
+        <!-- Bottom Navigation Menu strings -->
+        <string name="menu_home">Home</string>
+        <string name="menu_favorites">Favorites</string>
+        <string name="menu_profile">Profile</string>
+
+        <!-- Additional weather-related strings -->
+        <string name="sunset">Sunset</string>
+        <string name="humidity">Humidity</string>
+        <string name="pressure">Pressure</string>
+        <string name="visibility">Visibility</string>
+        <string name="uv_index">UV Index</string>
+        <string name="feels_like">Feels like</string>
+        <string name="today">Today</string>
+        <string name="tomorrow">Tomorrow</string>
+        <string name="this_week">This week</string>
+        <string name="search_city">Search city</string>
+        <string name="no_connection">No internet connection</string>
+        <string name="loading">Loading...</string>
+        <string name="error_loading_weather">Error loading weather data</string>
+        <string name="retry">Retry</string>
+
+        <!-- Settings and profile strings -->
+        <string name="settings">Settings</string>
+        <string name="temperature_unit">Temperature unit</string>
+        <string name="celsius_unit">Celsius</string>
+        <string name="fahrenheit_unit">Fahrenheit</string>
+        <string name="notifications">Notifications</string>
+        <string name="location_services">Location services</string>
+        <string name="about">About</string>
+        <string name="logout">Logout</string>
+        <string name="edit_profile">Edit profile</string>
+        <string name="save_changes">Save changes</string>
+        <string name="cancel">Cancel</string>
+
+        <!-- Favorites strings -->
+        <string name="favorite_cities">Favorite cities</string>
+        <string name="add_favorite">Add to favorites</string>
+        <string name="remove_favorite">Remove from favorites</string>
+        <string name="no_favorites">No favorite cities yet</string>
+        <string name="add_first_favorite">Add your first favorite city</string>
+
+        <!-- Generic/Fragment strings -->
+        <string name="hello_blank_fragment">Hello blank fragment</string>
+
+        <!-- Weather conditions -->
+        <string name="sunny">Sunny</string>
+        <string name="cloudy">Cloudy</string>
+        <string name="rainy">Rainy</string>
+        <string name="snowy">Snowy</string>
+        <string name="stormy">Stormy</string>
+        <string name="foggy">Foggy</string>
+        <string name="partly_cloudy">Partly cloudy</string>
+
+        <!-- Time periods -->
+        <string name="morning">Morning</string>
+        <string name="afternoon">Afternoon</string>
+        <string name="evening">Evening</string>
+        <string name="night">Night</string>
+
+        <!-- Days of the week -->
+        <string name="monday">Monday</string>
+        <string name="tuesday">Tuesday</string>
+        <string name="wednesday">Wednesday</string>
+        <string name="thursday">Thursday</string>
+        <string name="friday">Friday</string>
+        <string name="saturday">Saturday</string>
+        <string name="sunday">Sunday</string>
+
+</resources>
