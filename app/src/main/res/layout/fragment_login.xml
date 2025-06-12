@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tfEmail"
-        android:src="@drawable/placeholder_image"/>
+        android:src="@drawable/ic_sun"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tfEmail"
