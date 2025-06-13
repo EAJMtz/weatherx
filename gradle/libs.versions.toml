@@ -1,26 +1,34 @@
 [versions]
-agp = "8.9.1"
-kotlin = "2.0.21"
-coreKtx = "1.10.1"
+agp = "8.7.3"
+kotlin = "2.1.10"
+coreKtx = "1.16.0"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-activity = "1.8.0"
+activity = "1.10.1"
 constraintlayout = "2.2.1"
-navigationFragmentKtx = "2.9.0"
-navigationUiKtx = "2.9.0"
-lottie = "4.2.2"
+navigationFragmentKtx = "2.8.9"
+navigationUiKtx = "2.8.9"
+
 google-services = "4.4.2"
-firebase = "33.13.0"
+firebase = "33.12.0"
+
+lottie="6.0.0"
+
 retrofitVersion = "2.9.0"
 gson = "2.10.1"
+
 glideVersion = "4.15.1"
+location = "21.0.1"
+
+coroutines = "1.6.4"
+safeargs = "2.9.0"
 hilt = "2.56.2"
 hilt-plugin = "2.48"
-navigationFragmentKtxVersion = "2.9.0"
-navigationUiKtxVersion = "2.9.0"
+
+kotlinxDatetime = "0.6.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,22 +41,32 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
-lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
-firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
+
+lottie = {group = "com.airbnb.android", name="lottie", version.ref="lottie"}
+
+
+firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase"}
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth-ktx" }
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }
-retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion" }
-gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
+retrofit-converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitVersion"}
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson"}
+
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideVersion" }
-hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
-hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtxVersion" }
-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtxVersion" }
+location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "location" }
+coroutines-play = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-play-services", version.ref = "coroutines" }
+hilt = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt"}
+hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt"}
+
+
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 google-services-plugin = { id = "com.google.gms.google-services", version.ref = "google-services" }
-hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt-plugin" }
-kapt = { id = "org.jetbrains.kotlin.kapt" }
+safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "safeargs" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt"}
+kapt = { id = "kotlin-kapt" }

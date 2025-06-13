@@ -1,52 +1,30 @@
-package com.example.weatherx.model
-
+package com.example.proyectoshopifyka.model
 
 import com.google.gson.annotations.SerializedName
 
+
 data class Weather(
-    val location: Location,
-    val current: Current,
-    val forecast: Forecast
-) {
-    data class Forecast(
-        @SerializedName("forecastday") val forecastDays: List<ForecastDay>
-    )
-
-    data class ForecastDay(
-        val date: String,
-        @SerializedName("day") val dayInfo: DayInfo
-    )
-
-    data class DayInfo(
-        @SerializedName("avgtemp_c") val avgTempC: Float,
-        @SerializedName("maxwind_kph") val windSpeed: Float,
-        @SerializedName("daily_chance_of_rain") val rainChance: Int,
-        val condition: Condition
-    )
+    @SerializedName("location") val location: Location,
+    @SerializedName("current") val current: Current
+)
 
 
-    data class Location(
-        val name: String,
-        val region: String,
-        val country: String,
-        val lat: Float,
-        val lon: Float,
-        val localtime: String
-    )
+data class Location(
+    @SerializedName("name") val name: String,
+    @SerializedName("localtime") val localtime: String
+)
 
-    data class Current(
-        @SerializedName("last_updated") val lastUpdated: String,
-        @SerializedName("temp_c") val tempC: Float,
-        @SerializedName("is_day") val isDay: Int,
-        val condition: Condition,
-        @SerializedName("wind_mph")val windMph: Float
-    )
+data class Current(
+    @SerializedName("last_updated") val lastupdated: String,
+    @SerializedName("temp_c") val tempc: Float,
+    @SerializedName("feelslike_c") val feelslikec: Float,
+    @SerializedName("condition") val condition: Condition,
+    @SerializedName("wind_kph") val windkph: Float,
+    @SerializedName("humidity") val humidity: Int
+)
 
-    data class Condition(
-        val text: String,
-        val icon: String,
-        val code: Int
-    )
-
-}
+data class Condition(
+    @SerializedName("text") val text: String,
+    @SerializedName("icon") val icon: String
+)
 
